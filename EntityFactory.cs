@@ -42,8 +42,12 @@ namespace Platformer
             AddAnimationCycle(spriteSheet, "cool", new[] { 17 }, false, 0.3f);
             entity.Attach(new AnimatedSprite(spriteSheet, "idle"));
             entity.Attach(new Transform2(position, 0, Vector2.One * 4));
-            entity.Attach(new Body { Position = position, Size = new Vector2(32, 64), BodyType = BodyType.Dynamic });
+            var body = new Body { Position = position, Size = new Vector2(32, 64), BodyType = BodyType.Dynamic };
+            entity.Attach(body);
             entity.Attach(new Player());
+
+            PlayerRegistry.PlayerBody = body;
+
             return entity;
         }
 
@@ -96,6 +100,25 @@ namespace Platformer
                 Size = new Vector2(width, height),
                 BodyType = BodyType.Static
             });
+        }
+
+        public Entity CreateDoor(Vector2 position, string targetMap, Vector2 spawnPosition)
+        {
+            var bounds = new RectangleF(position.X, position.Y, 32, 64);
+
+            var entity = _world.CreateEntity();
+            entity.Attach(new Transform2(position));
+            entity.Attach(new Door(targetMap, spawnPosition, bounds));
+            entity.Attach(new Body             // <-- add this
+            {
+                Position = position,
+                Size = new Vector2(32, 64),
+                BodyType = BodyType.Static     // door doesn't move
+            });
+
+            DoorRegistry.DoorBounds = bounds;
+
+            return entity;
         }
     }
 }

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="2">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJy9lDsSwCAIRDHg/a+cxoLZiSuIsXiNri4/bSLSLvAksKRux6MHfMzp0MMGujiPoEbd3syDxek1SrQVD7yH5TzrR6TeGXZ6ztAR458eLI/o22FrVTJzUPH1M9c/6n4qt6jPib9tVbsbfyzyArxgAsk=
+   eJy9kzsSwCAIRDFgkftfOI0Fw+iGX1Jso6uP7yCi8YOugCToyzCmgyPKZxmyxC/vrayH1d2JgeLUHgbeCsP+g3I+9cNT74gyPUfiFeOXDJSHd3fQWVWROahw9czNTd27cvNw7oa66T3a5dDByOgBxawC1w==
   </data>
  </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" name="door" x="642" y="384.667" width="26.6667" height="61.3333">
+   <properties>
+    <property name="targetMap" value="level2-map"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
