@@ -3,11 +3,11 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJy9lDsSwCAIRDHg/a+cxoLZiSuIsXiNri4/bSLSLvAksKRux6MHfMzp0MMGujiPoEbd3syDxek1SrQVD7yH5TzrR6TeGXZ6ztAR458eLI/o22FrVTJzUPH1M9c/6n4qt6jPib9tVbsbfyzyArxgAsk=
+   eJy9lEsOwCAIRLHg/a/cjU3IpNBBq4tZOfr42kSkHdBVkBV9M4xOcMz5kGFD+nEfhR51ZxEji9N7NPGuMPCdLOeoH0y9K5rpeSYdMe5kZHmwu7NzBytzEMXCztCj/lL3PxgVzup/xdTuxB+LugHk2ALs
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" name="door" x="512.667" y="224" width="26.6667" height="62.6667">
+  <object id="1" name="door" x="642" y="384.667" width="26.6667" height="61.3333">
    <properties>
     <property name="targetMap" value="level2-map"/>
    </properties>

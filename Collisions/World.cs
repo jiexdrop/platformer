@@ -26,6 +26,8 @@ namespace Platformer.Collisions
 
         public void RemoveBody(Body body)
         {
+            if (body == null) return;
+            
             if (body.BodyType == BodyType.Dynamic)
                 _dynamicBodies.Remove(body);
             else

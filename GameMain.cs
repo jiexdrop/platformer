@@ -164,14 +164,50 @@ namespace Platformer
 
         private void LoadMap(string mapName, Vector2 playerSpawn)
         {
-            // Unload old map, reload world, etc.
+            // 1. Clear old physics bodies by destroying all entities
+            // (simplest approach — rebuild everything from scratch)
+            _entityFactory.DestroyAllEntities();
+
+            // 2. Load the new Tiled map
             _map = Content.Load<TiledMap>(mapName);
             _renderer = new TiledMapRenderer(GraphicsDevice, _map);
 
-            // Re-create entities for new map...
+            // 3. Recreate tile collision bodies
+            foreach (var tileLayer in _map.TileLayers)
+            {
+                for (var x = 0; x < tileLayer.Width; x++)
+                {
+                    for (var y = 0; y < tileLayer.Height; y++)
+                    {
+                        var tile = tileLayer.GetTile((ushort)x, (ushort)y);
+                        if (tile.GlobalIdentifier == 1)
+                        {
+                            _entityFactory.CreateTile(x, y, _map.TileWidth, _map.TileHeight);
+                        }
+                    }
+                }
+            }
+
+            // 4. Recreate doors from object layer
+            foreach (var objectLayer in _map.ObjectLayers)
+            {
+                foreach (var obj in objectLayer.Objects)
+                {
+                    if (obj.Name == "door")
+                    {
+                        var pos = new Vector2(obj.Position.X, obj.Position.Y);
+                        if (obj.Properties.TryGetValue("targetMap", out var targetMap))
+                        {
+                            _entityFactory.CreateDoor(pos, targetMap, new Vector2(100, 240));
+                        }
+                    }
+                }
+            }
+
+            // 5. Spawn player at new position
             _entityFactory.CreatePlayer(playerSpawn);
-            // etc.
         }
+
 
 
         private void DebugDrawBodies()

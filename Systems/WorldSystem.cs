@@ -28,7 +28,8 @@ namespace Platformer.Systems
         protected override void OnEntityAdded(int entityId)
         {
             var body = _bodyMapper.Get(entityId);
-            _world.AddBody(body);
+            if (body != null)
+                _world.AddBody(body);
         }
 
         protected override void OnEntityRemoved(int entityId)

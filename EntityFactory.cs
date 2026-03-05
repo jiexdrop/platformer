@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,8 @@ namespace Platformer
         private readonly World _world;
         private readonly ContentManager _contentManager;
 
+        private readonly List<int> _entityIds = new List<int>();
+
         public EntityFactory(World world, ContentManager contentManager)
         {
             _world = world;
@@ -29,6 +32,7 @@ namespace Platformer
 
 
             var entity = _world.CreateEntity();
+            _entityIds.Add(entity.Id);
             var spriteSheet = new SpriteSheet("SpriteSheet//hero", dudeAtlas);
             //var spriteSheet = new SpriteSheet {TextureAtlas = dudeAtlas};
 
@@ -58,6 +62,7 @@ namespace Platformer
             //var dudeAtlas = TextureAtlas.Create("blueguyAtlas", dudeTexture, 16, 16);
 
             var entity = _world.CreateEntity();
+            _entityIds.Add(entity.Id);
             var spriteSheet = new SpriteSheet("SpriteSheet//blueguy", dudeAtlas);
             //var spriteSheet = new SpriteSheet {TextureAtlas = dudeAtlas};
             AddAnimationCycle(spriteSheet, "idle", new[] { 0, 1, 2, 3, 2, 1 });
@@ -94,6 +99,7 @@ namespace Platformer
         public void CreateTile(int x, int y, int width, int height)
         {
             var entity = _world.CreateEntity();
+            _entityIds.Add(entity.Id);
             entity.Attach(new Body
             {
                 Position = new Vector2(x * width - width * 0.5f, y * height - height * 0.5f),
@@ -107,18 +113,27 @@ namespace Platformer
             var bounds = new RectangleF(position.X, position.Y, 32, 64);
 
             var entity = _world.CreateEntity();
+            _entityIds.Add(entity.Id);
             entity.Attach(new Transform2(position));
             entity.Attach(new Door(targetMap, spawnPosition, bounds));
-            entity.Attach(new Body             // <-- add this
-            {
-                Position = position,
-                Size = new Vector2(32, 64),
-                BodyType = BodyType.Static     // door doesn't move
-            });
+            // NO Body attached — door is a trigger, not a solid wall
 
             DoorRegistry.DoorBounds = bounds;
 
             return entity;
+        }
+
+        public void DestroyAllEntities()
+        {
+            // Collect all active entity IDs and destroy them
+            foreach (var id in _entityIds)
+                _world.DestroyEntity(id);
+
+            _entityIds.Clear();
+
+            // Reset registries
+            PlayerRegistry.PlayerBody = null;
+            DoorRegistry.DoorBounds = null;
         }
     }
 }
