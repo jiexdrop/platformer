@@ -35,7 +35,8 @@ namespace Platformer.Systems
         protected override void OnEntityRemoved(int entityId)
         {
             var body = _bodyMapper.Get(entityId);
-            _world.RemoveBody(body);
+            if (body != null)
+                _world.RemoveBody(body);
         }
 
         public override void Update(GameTime gameTime)

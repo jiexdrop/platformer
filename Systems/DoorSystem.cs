@@ -54,13 +54,13 @@ namespace Platformer.Systems
                 var playerCenter = new Vector2(playerBody.Position.X + playerBody.Size.X / 2,
                                                 playerBody.Position.Y + playerBody.Size.Y / 2);
                 var dist = Vector2.Distance(playerCenter, doorCenter);
-                System.Diagnostics.Debug.WriteLine($"[Door] Player pos: {playerBody.Position} | Door bounds: {door.Bounds} | Distance: {dist:F0}px | Intersects: {door.Bounds.Intersects(playerRect)}");
+                //System.Diagnostics.Debug.WriteLine($"[Door] Player pos: {playerBody.Position} | Door bounds: {door.Bounds} | Distance: {dist:F0}px | Intersects: {door.Bounds.Intersects(playerRect)}");
                 _debugTimer = 0;
             }
 
             if (door.Bounds.Intersects(playerRect))
             {
-                System.Diagnostics.Debug.WriteLine($"[Door] *** COLLISION! Transitioning to {door.TargetMap} ***");
+                //System.Diagnostics.Debug.WriteLine($"[Door] *** COLLISION! Transitioning to {door.TargetMap} ***");
                 GameMain.RequestLevelChange(door.TargetMap, door.SpawnPosition);
             }
         }
