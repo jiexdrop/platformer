@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.ECS;
 using MonoGame.Extended.Input;
@@ -21,6 +22,8 @@ namespace Platformer
 
         private SpriteBatch _debugBatch;
         private Texture2D _debugPixel;
+
+        private SettingsMenu _settingsMenu;
 
 
         public GameMain()
@@ -98,13 +101,17 @@ namespace Platformer
                 }
             }
 
-            _entityFactory.CreateBlue(new Vector2(600, 240));
-            _entityFactory.CreateBlue(new Vector2(700, 100));
+            //_entityFactory.CreateBlue(new Vector2(600, 240));
+            //_entityFactory.CreateBlue(new Vector2(700, 100));
             _entityFactory.CreatePlayer(new Vector2(100, 240));
 
             _debugBatch = new SpriteBatch(GraphicsDevice);
             _debugPixel = new Texture2D(GraphicsDevice, 1, 1);
             _debugPixel.SetData(new[] { Color.White });
+
+            var font = Content.Load<SpriteFont>("DefaultFont"); // make sure this exists in Content
+            _settingsMenu = new SettingsMenu(this, font, _debugBatch);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -131,6 +138,13 @@ namespace Platformer
             //_world.Update(gameTime);
 
 
+            var keyboard = KeyboardExtended.GetState();
+            if (keyboard.IsKeyDown(Keys.Tab)) // or F1, Escape, etc.
+                if (_settingsMenu.IsOpen) _settingsMenu.Close();
+                else _settingsMenu.Open();
+
+            _settingsMenu.Update();
+
 
             base.Update(gameTime);
         }
@@ -146,6 +160,8 @@ namespace Platformer
             _debugBatch.Begin(transformMatrix: _camera.GetViewMatrix());
             DebugDrawBodies();
             _debugBatch.End();
+
+            _settingsMenu.Draw();
 
             base.Draw(gameTime);
         }

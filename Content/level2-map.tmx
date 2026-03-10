@@ -3,13 +3,13 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJy9lEsOwCAIRLHg/a/cjU3IpNBBq4tZOfr42kSkHdBVkBV9M4xOcMz5kGFD+nEfhR51ZxEji9N7NPGuMPCdLOeoH0y9K5rpeSYdMe5kZHmwu7NzBytzEMXCztCj/lL3PxgVzup/xdTuxB+LugHk2ALs
+   eJy9lDsSwCAIRDFgkftfOA2ZYXYiCkSLrVx9fG1E1A7oCkiCvgyjL3DE+JAhKp7cR6GHzdmI4cVpPex4Kwx8x8t51I+VekeU6bkn1hh3Mrw8srvz545G5qDCtjPXP+qOjFu1i1NhvP2Z1e7EH4t6AN8YAuo=
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" name="door" x="642" y="384.667" width="26.6667" height="61.3333">
+  <object id="1" name="door" x="32.6667" y="224.667" width="26.6667" height="61.3333">
    <properties>
-    <property name="targetMap" value="level2-map"/>
+    <property name="targetMap" value="test-map"/>
    </properties>
   </object>
  </objectgroup>
